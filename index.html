@@ -10,268 +10,43 @@
   <!-- JQuery -->
   <script src="https://code.jquery.com/jquery.js"></script>
   <!--Font Awesome-->
-  <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">  
-<style>
+ <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/css?family=Cinzel" rel="stylesheet">
 
-body {
-  color: white;
-  font-family: "Arial Black", Gadget, sans-serif
-  background-image: url("assets/images/starWars.jpg");
-  background-image: url("assets/images/starWars.jpg");
-  background-position: center;
-  background-attachment: fixed;
-  background-color: #cccccc;;
-}
+<!--My CSS stylesheet-->
 
-button {
-  opacity:.8;
-}
+<link rel="stylesheet" href="assets/css/style.css">
 
-.jumbotron {
-  background-color: black;
-  opacity: .6;
-}
-#answerSpace {
-  width: 100%;
-}
-#questionSpace {
-  text-align: center;
-  margin: auto;
-}
-
-.class {
-  align-content: center;
-  margin: auto;
-}
-
-#answerSpace {
-  margin: auto;
-  align-content: center;
-}
-
-#answerImage {
-  margin: auto;
-  align-content: center;
-}
-
-</style>
 
 </head>
 <body>
-
+      
+      <audio autoplay>
+          <source src="assets/audio/01 - Star Wars Medley (From _Star Wars_).mp3" type="audio/mpeg">
+      </audio>
   <!-- Overall Bootstrap Grid -->
-  <div class="container">
+  <container>
 
     <!-- Header for Trivia Game -->
       <div class="jumbotron">
+       
          <h1 class="text-center"><strong>STAR WARS</strong></h1>
-        <h2 class="text-center"><strong>Trivia Game</strong></h2>
-        <h2 class="text-center" id="timer"></h2>
-        <h4 class="text-center"></h4>
-        <hr>
-        <div id="buttonArea" class="text-center">
-          <button type="button" id="startButton" class="btn btn-default btn-lg btn-block">Start!!!</button>
-                                                  
-        </div>
-
+          <h2 class="text-center"><strong>Trivia Game</strong></h2>
+          <h2 class="text-center" id="timer"></h2>
+          <h4 class="text-center"></h4>
+          <br>
+          <div id="buttonArea" class="text-center">
+            <button type="button" id="startButton" class="btn btn-default btn-lg btn-block">Start!!!</button>                                   
+          </div>
       </div>
+
       <div class="playArea">
-        <h2 id="questionSpace"> </h2>
+        <h2 class="text-center" id="questionSpace"> </h2>
         <div class="text-center" id="answerSpace"> </div>
         <div class="text-center" id="answerImage"> </div>
       </div>
-  </div>
+  </container>
 
-
-    
-
-  <script>
-
-      
-
-    // JavaScript function that wraps everything
-    $(document).ready(function() {
-
-      var timeCount = false;
-      var time = 30;
-      var count = 0;
-      var questions = ["Who is the only non Jedi in the original Star Wars trilogy to use a lightsaber?", "In which Star Wars film did Luke Skywalker lose his hand in a duel with Darth Vader?" , "Who gave Luke Skywalker his first lightsaber?"];
-      var answer = ["Han Solo", "Empire Strikes Back", "Obi-Wan Kenobi"];
-      var answerImg = ["assets/images/hanSolo.jpg", "assets/images/darthVader.jpg", "assets/images/obiWan.jpg"];
-      var choice0 = ["Princess Leia", "Han Solo", "Chewbacca", "R2-D2"];
-      var choice1 = ["Empire Strikes Back", "Return of the Jedi", "A New Hope", "The Force Awakens"];
-      var choice2 = ["Yoda", "Han Solo", "Obi-Wan Kenobi", "Mace Windu"];
-      var choiceBank = [choice0, choice1, choice2];
-      var displayAnswerInterval = 5000;
-
-      var correct = 0;
-      var wrong = 0;
-      var unanswered = 0;
-
-      // click start button to execute displayQuestion()
-      //
-      
-
-     $("#startButton").on("click", function() {
-          timeCount = true;
-          setInterval(timeClock, 1000);
-
-          displayQuestion();
-          displayChoices();
-
-
-          
-       });
-
-
-
-    function timeClock() {
-          
-          if (timeCount) {
-            $("#timer").html(time);
-            time--;
-            
-          }
-          
-          if (time + 1 === 0) {
-            $("#questionSpace").html("Time's Up");
-            displayAnswer()
-            unasnwered++;
-          };
-          
-    };
-    
-    
-
-
-    //function to display the current question and begin timer
-    function displayQuestion() {
-      $("#startButton").hide();
-      //$("#buttonArea").hide();
-    
-      $("#questionSpace").html(questions[count]);
-      
-      timeCount = true;
-    };
-
-
-    function displayChoices() {
-        
-      for(i=0; i < choiceBank[count].length; i++){
-        var answerButton = $("<button>");
-        answerButton.addClass("btn btn-default btn-lg btn-block");
-        answerButton.text(choiceBank[count][i]);
-        answerButton.addClass("answerButton");
-        answerButton.appendTo("#answerSpace");
-      }
-      
-      $(".answerButton").click(rightWrongDecide)
-
-
-
-
-    };
-
-    function displayAnswer() {
-      timeCount = false;
-      $("#answerSpace").empty();
-      $("#answerSpace").html(answer[count]);
-      $("#answerImage").html("<img src=" + answerImg[count] + " width='400px'>");
-      time = 30;
-
-      if (count === questions.length - 1){
-        setTimeout(endGame, displayAnswerInterval);
-      } else{
-      setTimeout(nextQuestion, displayAnswerInterval);  
-      };
-
-    };
-
-
-    function nextQuestion() {
-      //Increment the count by 1.
-      //clearInterval(keepTime);
-      count++;
-      timeCount = true;
-      $("#answerSpace").empty();
-      $("#answerImage").empty();
-      //Run displayQuestion function again for another question in sequence
-      displayQuestion();
-      displayChoices();
-
-      //If the count is the same as the length of the questions array, run the end game function.
-    };
-
-
-
-    //function to execute time countdown by second
-    
-    function rightWrongDecide(){
-        console.log("Decide right wrong answer");
-        console.log(answer[count])
-        console.log(this.innerHTML);
-        if(this.innerHTML === answer[count]){
-              $("#questionSpace").html("Correct");
-              correct++;
-              displayAnswer();
-        }else{
-              $("#questionSpace").html("Incorrect");
-              wrong++;
-              displayAnswer();
-        };
-
-      };
-   
-
-    function endGame(){
-
-      count = 0;
-      time = 30;
-      $("#timer").html("");
-      $("#answerSpace").html("");
-      $("#questionSpace").html("");
-      $("#answerImage").html("");
-
-    var correctStats = $("<li>");
-        correctStats.appendTo("#questionSpace");
-        wrongStats = $("<li>");
-        wrongStats.appendTo("#questionSpace");
-        unansweredStats = $("<li>");
-        unansweredStats.appendTo("#questionSpace");
-      
-
-      correctStats.append("Number Correct: " + correct)
-      wrongStats.append("Number Incorrect: " + wrong)
-      unansweredStats.append("Number Unanswered: " + unanswered)
-
-
-      var playAgain = $("<button>");
-        playAgain.addClass("btn btn-default btn-lg btn-block");
-        playAgain.addClass("playAgainButton");
-        playAgain.text("Click To Play Again.");
-        playAgain.appendTo("#buttonArea");
-      
-      $(".playAgainButton").on("click", restart);
-
-      function restart(){
-          correct = 0;
-          wrong = 0;
-          unanswered = 0;
-          $("#answerSpace").empty();
-          $(".playAgainButton").hide();
-          displayQuestion();
-          displayChoices();
-        };
-
-      
-      //empty contents of div class
-      //display play again? button
-      //if play again? button clicked: execute diplayQuestions()
-    };
-
-    });
-
-  </script>
-
+  <script src="assets/javascript/app.js"></script>
 </body>
 </html>

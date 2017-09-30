@@ -1,0 +1,45 @@
+body {
+  color: white;
+  font-family: 'Cinzel', serif;
+  background-image: url("../images/starWars.jpg");
+  background-position: center;
+  background-attachment: fixed;
+  background-color: black;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+.jumbotron {
+  opacity: .6;
+  background-color: black;
+}
+
+button {
+  opacity: .6;
+
+}
+
+#questionpace {
+  text-align: center;
+  margin: auto;
+  opacity: .6;
+}
+
+#answerSpace {
+  width: 100%;
+  margin: auto;
+  align-content: center;
+}
+
+
+#answerImage {
+  margin: auto;
+  align-content: center;
+  opacity: .9;
+}
+
+.answerButton {
+  color: #8B0000;
+}
+
+
